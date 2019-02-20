@@ -7,7 +7,7 @@ use App\Estados;
 
 class EstadosController extends Controller
 {
-    public function all()
+    public function all($id)
     {
         $estados =  Estados::all();
         return response()->json($estados, 200);

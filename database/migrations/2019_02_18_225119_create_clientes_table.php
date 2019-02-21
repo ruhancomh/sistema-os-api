@@ -26,18 +26,19 @@ class CreateClientesTable extends Migration
             $table->enum('ativo',[1,2])->default(1);
             $table->enum('prospeccao',[1,2])->default(2);
             $table->decimal('porcentagem_comissao_vendedor',5,2)->nullable();
+            $table->enum('pendencia',[1,2])->default(2);
             $table->text('obervacao')->nullable();
             $table->text('informacao_faturamento')->nullable();
             $table->enum('rastreabilidade_mri',[1,2])->default(2);
             $table->enum('faturamento_mensal',[1,2])->default(2);
             $table->enum('contrato_manutencao',[1,2])->default(2);
-            $table->integer('atividades_id')->unsigned()->nullable();
+            $table->integer('cliente_atividades_id')->unsigned()->nullable();
             $table->integer('funcionarios_id')->unsigned()->nullable();
             $table->timestamps();
 
-            $table->foreign('atividades_id')
+            $table->foreign('cliente_atividades_id')
                 ->references('id')
-                ->on('atividades')
+                ->on('cliente_atividades')
                 ->onDelete('set null');
 
             $table->foreign('funcionarios_id')
@@ -56,7 +57,7 @@ class CreateClientesTable extends Migration
     {
         Schema::table('clientes', function (Blueprint $table) {
             $table->dropForeign(['funcionarios_id']);
-            $table->dropForeign(['atividades_id']);
+            $table->dropForeign(['cliente_atividades_id']);
         });
         Schema::dropIfExists('clientes');
     }

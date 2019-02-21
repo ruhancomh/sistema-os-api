@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAtividadesTable extends Migration
+class CreateClienteAtividadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAtividadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('atividades', function (Blueprint $table) {
+        Schema::create('cliente_atividades', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descricao', 250);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateAtividadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('atividades');
+        Schema::dropIfExists('cliente_atividades');
     }
 }

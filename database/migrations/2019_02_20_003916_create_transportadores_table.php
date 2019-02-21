@@ -25,6 +25,7 @@ class CreateTransportadoresTable extends Migration
             $table->string('telefone',30)->nullable();
             $table->string('fax',30)->nullable();
             $table->string('numero_licensa',100)->nullable();
+            $table->date('vencimento_licensa')->nullable();
             $table->text('observacao')->nullable();
             $table->integer('cidades_id')->unsigned()->nullable();
             $table->integer('bairros_id')->unsigned()->nullable();

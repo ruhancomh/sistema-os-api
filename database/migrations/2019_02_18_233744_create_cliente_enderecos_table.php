@@ -15,6 +15,8 @@ class CreateClienteEnderecosTable extends Migration
     {
         Schema::create('cliente_enderecos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('descricao',250)->nullable();
+            $table->string('cnpj',50);
             $table->string('logradouro',250);
             $table->string('cep',20);
             $table->string('telefone',30)->nullable();

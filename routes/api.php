@@ -22,5 +22,6 @@ Route::get('/', function (){
 });
 
 Route::get('estados', 'EstadosController@all');
+Route::post('estados', 'EstadosController@create');
 
 Route::get('cidades/{id}', 'CidadesController@all');

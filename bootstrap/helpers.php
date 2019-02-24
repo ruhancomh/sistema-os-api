@@ -1,6 +1,6 @@
 <?php
 
-function formatRequestFilter ($request, $defaultSort = 'id', $defaultSortDirection = 'desc') {
+function formatRequestFilter ($request, $defaultSort = 'id', $defaultSortDirection = 'desc', $sortOptions = false) {
     
     $_filters = $request->input('filter');
     $formatedFilters = [];
@@ -20,6 +20,22 @@ function formatRequestFilter ($request, $defaultSort = 'id', $defaultSortDirecti
     $sortBy = $request->input('sort_by', $defaultSort);
     $sortDirection = $request->input('sort_direction', $defaultSortDirection);
     $offset = ($page - 1)* $limit;
+
+    if($sortOptions) {
+        $_sortBy = false;
+
+        foreach($sortOptions as $alias => $field) {
+            if ($alias == $sortBy) {
+                $_sortBy = $field;
+            }
+        }
+
+        if ($_sortBy) {
+            $sortBy = $_sortBy;
+        } else {
+            $sortBy = $defaultSort;
+        }
+    }
 
     return [
         'filter' => $formatedFilters,

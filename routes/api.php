@@ -26,6 +26,7 @@ Route::post('estados', 'EstadosController@create');
 Route::post('estados/{id}/cidades', 'CidadesController@listByEstado');
 
 Route::get('cidades', 'CidadesController@all');
+Route::post('cidades', 'CidadesController@create');
 Route::get('cidades/{id}', 'CidadesController@get');
 Route::put('cidades/{id}', 'CidadesController@update');
 Route::delete('cidades/{id}', 'CidadesController@delete');

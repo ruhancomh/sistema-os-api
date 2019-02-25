@@ -37,12 +37,12 @@ class EstadosController extends Controller
             'data' => $estados,
             'meta' => $metaData
         ];
-        
+
         return response()->json($result, 200);
     }
 
     public function create(Request $request)
-    {      
+    {
         $estado = Estados::create($request->all());
         return response()->json($estado,201);
     }

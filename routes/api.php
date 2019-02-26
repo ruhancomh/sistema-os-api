@@ -66,3 +66,15 @@ Route::post('clientes', 'ClientesController@create');
 Route::get('clientes/{id}', 'ClientesController@get');
 Route::put('clientes/{id}', 'ClientesController@update');
 Route::delete('clientes/{id}', 'ClientesController@delete');
+
+Route::get('conversa-acoes', 'ConversaAcoesController@all');
+Route::post('conversa-acoes', 'ConversaAcoesController@create');
+Route::get('conversa-acoes/{id}', 'ConversaAcoesController@get');
+Route::put('conversa-acoes/{id}', 'ConversaAcoesController@update');
+Route::delete('conversa-acoes/{id}', 'ConversaAcoesController@delete');
+
+Route::get('clientes/{clientes_id}/conversas', 'ConversaController@all');
+Route::post('clientes/{clientes_id}/conversas', 'ConversaController@create');
+Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversaController@get');
+Route::put('clientes/{clientes_id}/conversas/{id}', 'ConversaController@update');
+Route::delete('clientes/{clientes_id}/conversas/{id}', 'ConversaController@delete');

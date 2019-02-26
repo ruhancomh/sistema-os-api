@@ -43,6 +43,9 @@ class CidadesController extends Controller
                             ->orWhere('estados.nome', 'like', '%' . $value . '%');
                         });
                     break;
+                    case 'estados_id':
+                        $query->where('estados.id', '=', $value);
+                    break;
                 }
             }
             
@@ -50,8 +53,11 @@ class CidadesController extends Controller
             
             $query->select('cidades.*');
             $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
-            $query->offset($requestFilter['offset']);
-            $query->limit($requestFilter['limit']);
+            
+            if($requestFilter['limit'] > 0) {
+                $query->offset($requestFilter['offset']);
+                $query->limit($requestFilter['limit']);
+            }
 
             $cidades = $query->get();
 

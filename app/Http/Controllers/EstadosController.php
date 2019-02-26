@@ -28,8 +28,11 @@ class EstadosController extends Controller
         $metaData['total'] = $query->count();
 
         $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
-        $query->offset($requestFilter['offset']);
-        $query->limit($requestFilter['limit']);
+        
+        if($requestFilter['limit'] > 0){
+            $query->offset($requestFilter['offset']);
+            $query->limit($requestFilter['limit']);
+        }
 
         $estados = $query->get();
 

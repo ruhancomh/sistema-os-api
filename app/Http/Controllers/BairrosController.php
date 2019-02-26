@@ -24,7 +24,7 @@ class BairrosController extends Controller
             $requestFilter = formatRequestFilter($request, 'bairros.nome', 'asc', ['nome' => 'bairros.nome', 'cidade' => 'cidades.nome']);
 
             $query = Bairros::query();
-            $query->with('cidade');
+            $query->with('cidade','cidade.estado');
             $query->join('cidades','bairros.cidades_id','=','cidades.id');
 
             foreach($requestFilter['filter'] as $field => $value) {
@@ -49,8 +49,11 @@ class BairrosController extends Controller
 
             $query->select('bairros.*');
             $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
-            $query->offset($requestFilter['offset']);
-            $query->limit($requestFilter['limit']);
+            
+            if($requestFilter['limit'] > 0){
+                $query->offset($requestFilter['offset']);
+                $query->limit($requestFilter['limit']);
+            }
 
             $bairros = $query->get();
 
@@ -68,7 +71,7 @@ class BairrosController extends Controller
     public function get($id)
     {
         try {
-            $bairro = Bairros::with('cidade')->find($id);
+            $bairro = Bairros::with('cidade','cidade.estado')->find($id);
             return response()->json($bairro, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);

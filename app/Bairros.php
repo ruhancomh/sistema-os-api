@@ -12,4 +12,8 @@ class Bairros extends Model
     {
         return $this->belongsTo('App\Cidades', 'cidades_id');
     }
+
+    public function estados() {
+        return $this->hasManyThrough('App\Cidades','App\Estados');
+    }
 }

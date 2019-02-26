@@ -10,6 +10,6 @@ class Funcionarios extends Model
 
     public function cargo()
     {
-        return $this->hasOne('App\FuncionarioCargos', 'funcionario_cargos_id');
+        return $this->hasOne('App\FuncionarioCargos', 'id', 'funcionario_cargos_id');
     }
 }

@@ -39,8 +39,11 @@ class FuncionarioCargosController extends Controller
 
             $query->select('funcionario_cargos.*');
             $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
-            $query->offset($requestFilter['offset']);
-            $query->limit($requestFilter['limit']);
+
+            if ($requestFilter['limit'] > 0) {
+                $query->offset($requestFilter['offset']);
+                $query->limit($requestFilter['limit']);
+            }
 
             $funcionarioCargos = $query->get();
 

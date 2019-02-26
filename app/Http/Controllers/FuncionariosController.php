@@ -21,7 +21,7 @@ class FuncionariosController extends Controller
     {
         try {
             $metaData = [];
-            $requestFilter = formatRequestFilter($request, 'funcionarios.nome', 'asc', ['nome' => 'funcionarios.nome', 'cargos' => 'funcionario_cargos.nome']);
+            $requestFilter = formatRequestFilter($request, 'funcionarios.nome', 'asc', ['nome' => 'funcionarios.nome', 'cargos' => 'funcionario_cargos.descricao']);
 
             $query = Funcionarios::query();
             $query->with('cargo');

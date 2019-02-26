@@ -30,11 +30,11 @@ class Clientes extends Model
 
     public function atividade()
     {
-        return $this->hasOne('App\ClienteAtividades', 'cliente_atividades_id');
+        return $this->hasOne('App\ClienteAtividades', 'id', 'cliente_atividades_id');
     }
 
     public function funcionario()
     {
-        return $this->hasOne('App\Funcionario', 'funcionarios_id');
+        return $this->hasOne('App\Funcionario', 'id', 'funcionarios_id');
     }
 }

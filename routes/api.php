@@ -78,3 +78,27 @@ Route::post('clientes/{clientes_id}/conversas', 'ConversaController@create');
 Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversaController@get');
 Route::put('clientes/{clientes_id}/conversas/{id}', 'ConversaController@update');
 Route::delete('clientes/{clientes_id}/conversas/{id}', 'ConversaController@delete');
+
+Route::get('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@all');
+Route::post('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@create');
+Route::get('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@get');
+Route::put('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@update');
+Route::delete('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@delete');
+
+Route::get('clientes/{clientes_id}/contatos', 'ClienteContatosController@all');
+Route::post('clientes/{clientes_id}/contatos', 'ClienteContatosController@create');
+Route::get('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@get');
+Route::put('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@update');
+Route::delete('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@delete');
+
+Route::get('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@all');
+Route::post('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@create');
+Route::get('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@get');
+Route::put('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@update');
+Route::delete('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@delete');
+
+Route::get('endereco-tipos', 'EnderecoTiposController@all');
+Route::post('endereco-tipos', 'EnderecoTiposController@create');
+Route::get('endereco-tipos/{id}', 'EnderecoTiposController@get');
+Route::put('endereco-tipos/{id}', 'EnderecoTiposController@update');
+Route::delete('endereco-tipos/{id}', 'EnderecoTiposController@delete');

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class EnderecoTipos extends Model
 {
-    //
+    protected $fillable = ['descricao'];
 }

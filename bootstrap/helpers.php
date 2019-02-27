@@ -8,10 +8,12 @@ function formatRequestFilter ($request, $defaultSort = 'id', $defaultSortDirecti
     if ($_filters) {
         $_filters = explode(',',$_filters);
         foreach($_filters as $filter) {
-            $filter = explode(':', $filter);
-            $filter[1] = trim($filter[1]);
-            if($filter[1] != '') {
-                $formatedFilters[$filter[0]] = $filter[1];
+            if($filter != ''){
+                $filter = explode(':', $filter);
+                $filter[1] = trim($filter[1]);
+                if($filter[1] != '') {
+                    $formatedFilters[$filter[0]] = $filter[1];
+                }
             }
         }
     }

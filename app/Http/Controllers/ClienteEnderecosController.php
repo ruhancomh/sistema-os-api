@@ -30,16 +30,16 @@ class ClienteEnderecosController extends Controller
             $query->join('clientes','cliente_enderecos.clientes_id','=','clientes.id');
 
             $query->with('contato');
-            $query->join('cliente_contatos','cliente_enderecos.cliente_contatos_id','=','cliente_contatos.id');
+            $query->leftJoin('cliente_contatos','cliente_enderecos.cliente_contatos_id','=','cliente_contatos.id');
 
             $query->with('tipo');
-            $query->join('endereco_tipos','cliente_enderecos.endereco_tipos_id','=','endereco_tipos.id');
+            $query->leftJoin('endereco_tipos','cliente_enderecos.endereco_tipos_id','=','endereco_tipos.id');
 
             $query->with('cidade', 'cidades.estado');
-            $query->join('cidades','cliente_enderecos.cidades_id','=','cidades.id');
+            $query->leftJoin('cidades','cliente_enderecos.cidades_id','=','cidades.id');
 
             $query->with('bairro');
-            $query->join('bairros','cliente_enderecos.bairros_id','=','bairros.id');
+            $query->leftJoin('bairros','cliente_enderecos.bairros_id','=','bairros.id');
 
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {

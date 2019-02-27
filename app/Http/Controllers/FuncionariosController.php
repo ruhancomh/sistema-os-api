@@ -25,7 +25,7 @@ class FuncionariosController extends Controller
 
             $query = Funcionarios::query();
             $query->with('cargo');
-            $query->join('funcionario_cargos','funcionarios.funcionario_cargos_id','=','funcionario_cargos.id');
+            $query->leftJoin('funcionario_cargos','funcionarios.funcionario_cargos_id','=','funcionario_cargos.id');
 
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {

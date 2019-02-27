@@ -29,7 +29,7 @@ class ClienteCobrancasController extends Controller
             $query->join('clientes','cliente_cobrancas.clientes_id','=','clientes.id');
 
             $query->with('servico');
-            $query->join('servicos','cliente_cobrancas.servicos_id','=','servicos.id');
+            $query->leftJoin('servicos','cliente_cobrancas.servicos_id','=','servicos.id');
 
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {

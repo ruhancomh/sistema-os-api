@@ -25,14 +25,24 @@ class ClientesController extends Controller
 
             $query = Clientes::query();
             $query->with('atividade');
-            $query->join('cliente_atividades','clientes.cliente_atividades_id','=','cliente_atividades.id');
+            $query->leftJoin('cliente_atividades','clientes.cliente_atividades_id','=','cliente_atividades.id');
 
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {
-                    case 'nome':
+                    case 'razao_social':
                         $value = explode(' ', $value);
                         $value = join('%', $value);
-                        $query->where('clientes.nome', 'like', '%' . $value . '%');
+                        $query->where('clientes.razao_social', 'like', '%' . $value . '%');
+                    break;
+                    case 'nome_fantasia':
+                        $value = explode(' ', $value);
+                        $value = join('%', $value);
+                        $query->where('clientes.nome_fantasia', 'like', '%' . $value . '%');
+                    break;
+                    case 'cnpj':
+                        $value = explode(' ', $value);
+                        $value = join('%', $value);
+                        $query->where('clientes.cnpj', 'like', '%' . $value . '%');
                     break;
                     case 'atividade':
                         $query->Where('cliente_atividades.id', '=', $value );

@@ -44,8 +44,11 @@ class FuncionariosController extends Controller
 
             $query->select('funcionarios.*');
             $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
-            $query->offset($requestFilter['offset']);
-            $query->limit($requestFilter['limit']);
+            
+            if($requestFilter['limit'] > 0) {
+                $query->offset($requestFilter['offset']);
+                $query->limit($requestFilter['limit']);
+            }
 
             $funcionarios = $query->get();
 

@@ -20,6 +20,16 @@ class Conversas extends Model
 
     public function acao()
     {
-        return $this->hasOne('App\ConversaAcoes', 'conversa_acoes_id');
+        return $this->hasOne('App\ConversaAcoes', 'id', 'conversa_acoes_id');
+    }
+
+    public function setDataAttribute ($value)
+    {
+        $this->attributes['data'] = date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value)));
+    }
+
+    public function getDataAttribute ($value)
+    {
+        return date('d/m/Y H:i', strtotime($value));
     }
 }

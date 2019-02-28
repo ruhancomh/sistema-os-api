@@ -24,19 +24,21 @@ class ConversasController extends Controller
             $requestFilter = formatRequestFilter($request, 'conversas.data', 'desc', ['funcionario' => 'funcionarios.nome']);
 
             $query = Conversas::query();
+            $query->where('clientes.id', '=', $clientes_id);
             $query->with('cliente');
             $query->join('clientes','conversas.clientes_id','=','clientes.id');
 
             $query->with('funcionario');
-            $query->join('funcionarios','conversas.funcionarios_id','=','funcionarios.id');
+            $query->leftJoin('funcionarios','conversas.funcionarios_id','=','funcionarios.id');
 
             $query->with('acao');
-            $query->join('conversa_acoes','conversas.conversa_acoes_id','=','conversa_acoes.id');
+            $query->leftJoin('conversa_acoes','conversas.conversa_acoes_id','=','conversa_acoes.id');
 
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {
                     case 'data':
-                        $query->where('conversas.data', '=', $value);
+                        $value = date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value)));
+                        $query->where('conversas.data', '>=', $value);
                     break;
                     case 'funcionario':
                         $query->Where('funcionarios.id', '=', $value );

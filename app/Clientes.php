@@ -35,6 +35,6 @@ class Clientes extends Model
 
     public function funcionario()
     {
-        return $this->hasOne('App\Funcionario', 'id', 'funcionarios_id');
+        return $this->hasOne('App\Funcionarios', 'id', 'funcionarios_id');
     }
 }

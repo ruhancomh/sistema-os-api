@@ -7,7 +7,7 @@ use App\ClienteContatos;
 
 class ClienteContatosController extends Controller
 {
-    public function create (Request $request)
+    public function create (Request $request, $clientes_id)
     {
         try {
             $clienteContato = ClienteContatos::create($request->all());
@@ -17,7 +17,7 @@ class ClienteContatosController extends Controller
         }
     }
 
-    public function all(Request $request)
+    public function all(Request $request, $clientes_id)
     {
         try {
             $metaData = [];
@@ -64,17 +64,17 @@ class ClienteContatosController extends Controller
         }
     }
 
-    public function get($id)
+    public function get($clientes_id, $id)
     {
         try {
-            $clienteContato = ClienteContatos::with('cliente')->with('funcionario')->find($id);
+            $clienteContato = ClienteContatos::with('cliente')->find($id);
             return response()->json($clienteContato, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $clientes_id, $id)
     {
         try {
             $clienteContato = ClienteContatos::find($id);
@@ -86,7 +86,7 @@ class ClienteContatosController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete($clientes_id, $id)
     {
         try {
             ClienteContatos::findOrFail($id)->delete();

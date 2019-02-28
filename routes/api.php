@@ -73,11 +73,11 @@ Route::get('conversa-acoes/{id}', 'ConversaAcoesController@get');
 Route::put('conversa-acoes/{id}', 'ConversaAcoesController@update');
 Route::delete('conversa-acoes/{id}', 'ConversaAcoesController@delete');
 
-Route::get('clientes/{clientes_id}/conversas', 'ConversaController@all');
-Route::post('clientes/{clientes_id}/conversas', 'ConversaController@create');
-Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversaController@get');
-Route::put('clientes/{clientes_id}/conversas/{id}', 'ConversaController@update');
-Route::delete('clientes/{clientes_id}/conversas/{id}', 'ConversaController@delete');
+Route::get('clientes/{clientes_id}/conversas', 'ConversasController@all');
+Route::post('clientes/{clientes_id}/conversas', 'ConversasController@create');
+Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversasController@get');
+Route::put('clientes/{clientes_id}/conversas/{id}', 'ConversasController@update');
+Route::delete('clientes/{clientes_id}/conversas/{id}', 'ConversasController@delete');
 
 Route::get('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@all');
 Route::post('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@create');

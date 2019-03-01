@@ -39,8 +39,11 @@ class EnderecoTiposController extends Controller
 
             $query->select('endereco_tipos.*');
             $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
-            $query->offset($requestFilter['offset']);
-            $query->limit($requestFilter['limit']);
+            
+            if($requestFilter['limit'] > 0){
+                $query->offset($requestFilter['offset']);
+                $query->limit($requestFilter['limit']);
+            }
 
             $conversaAcoes = $query->get();
 

@@ -27,6 +27,7 @@ class ClienteContatosController extends Controller
 
             $query->with('cliente');
             $query->join('clientes','cliente_contatos.clientes_id','=','clientes.id');
+            $query->where('clientes.id','=',$clientes_id);
 
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {

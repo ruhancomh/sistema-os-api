@@ -99,4 +99,14 @@ class BairrosController extends Controller
             return response()->json($e->getMessage(), 400);
         }
     }
+
+    public function listByCidade($cidades_id)
+    {
+        try {
+            $bairros = Bairros::where('cidades_id', '=', $cidades_id)->get();
+            return response()->json($bairros, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+    }
 }

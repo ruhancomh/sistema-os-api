@@ -19,7 +19,7 @@ class Clientes extends Model
         'prospeccao',
         'porcentagem_comissao_vendedor',
         'pendencia',
-        'obervacao',
+        'observacao',
         'informacao_faturamento',
         'rastreabilidade_mri',
         'faturamento_mensal',

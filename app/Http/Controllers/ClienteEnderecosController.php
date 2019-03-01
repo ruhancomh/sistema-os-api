@@ -8,7 +8,7 @@ use App\ClienteEnderecos;
 
 class ClienteEnderecosController extends Controller
 {
-    public function create (Request $request)
+    public function create (Request $request,$clientes_id)
     {
         try {
             $clienteEndereco = ClienteEnderecos::create($request->all());
@@ -18,7 +18,7 @@ class ClienteEnderecosController extends Controller
         }
     }
 
-    public function all(Request $request)
+    public function all(Request $request,$clientes_id)
     {
         try {
             $metaData = [];
@@ -28,6 +28,7 @@ class ClienteEnderecosController extends Controller
 
             $query->with('cliente');
             $query->join('clientes','cliente_enderecos.clientes_id','=','clientes.id');
+            $query->where('clientes.id','=',$clientes_id);
 
             $query->with('contato');
             $query->leftJoin('cliente_contatos','cliente_enderecos.cliente_contatos_id','=','cliente_contatos.id');
@@ -35,7 +36,7 @@ class ClienteEnderecosController extends Controller
             $query->with('tipo');
             $query->leftJoin('endereco_tipos','cliente_enderecos.endereco_tipos_id','=','endereco_tipos.id');
 
-            $query->with('cidade', 'cidades.estado');
+            $query->with('cidade', 'cidade.estado');
             $query->leftJoin('cidades','cliente_enderecos.cidades_id','=','cidades.id');
 
             $query->with('bairro');
@@ -96,13 +97,13 @@ class ClienteEnderecosController extends Controller
         }
     }
 
-    public function get($id)
+    public function get($clientes_id,$id)
     {
         try {
             $clienteEndereco = ClienteEnderecos::with('cliente')
                 ->with('contato')
                 ->with('tipo')
-                ->with('cidade')
+                ->with('cidade','cidade.estado')
                 ->with('bairro')
                 ->find($id);
             return response()->json($clienteEndereco, 200);
@@ -111,7 +112,7 @@ class ClienteEnderecosController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request,$clientes_id, $id)
     {
         try {
             $clienteEndereco = ClienteEnderecos::find($id);
@@ -123,7 +124,7 @@ class ClienteEnderecosController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete($clientes_id,$id)
     {
         try {
             ClienteEnderecos::findOrFail($id)->delete();

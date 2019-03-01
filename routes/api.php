@@ -23,13 +23,14 @@ Route::get('/', function (){
 
 Route::get('estados', 'EstadosController@all');
 Route::post('estados', 'EstadosController@create');
-Route::post('estados/{id}/cidades', 'CidadesController@listByEstado');
+Route::get('estados/{id}/cidades', 'CidadesController@listByEstado');
 
 Route::get('cidades', 'CidadesController@all');
 Route::post('cidades', 'CidadesController@create');
 Route::get('cidades/{id}', 'CidadesController@get');
 Route::put('cidades/{id}', 'CidadesController@update');
 Route::delete('cidades/{id}', 'CidadesController@delete');
+Route::get('cidades/{id}/bairros', 'BairrosController@listByCidade');
 
 Route::get('bairros', 'BairrosController@all');
 Route::post('bairros', 'BairrosController@create');

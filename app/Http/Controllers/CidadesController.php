@@ -103,4 +103,14 @@ class CidadesController extends Controller
             return response()->json($e->getMessage(), 400);
         }
     }
+
+    public function listByEstado($estados_id)
+    {
+        try {
+            $cidades = Cidades::where('estados_id','=', $estados_id)->get();
+            return response()->json($cidades, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+    }
 }

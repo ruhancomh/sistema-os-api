@@ -86,6 +86,12 @@ Route::get('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@
 Route::put('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@update');
 Route::delete('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@delete');
 
+Route::get('clientes/{clientes_id}/propostas', 'ClientePropostasController@all');
+Route::post('clientes/{clientes_id}/propostas', 'ClientePropostasController@create');
+Route::get('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@get');
+Route::put('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@update');
+Route::delete('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@delete');
+
 Route::get('clientes/{clientes_id}/contatos', 'ClienteContatosController@all');
 Route::post('clientes/{clientes_id}/contatos', 'ClienteContatosController@create');
 Route::get('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@get');

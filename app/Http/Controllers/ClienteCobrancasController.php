@@ -80,7 +80,7 @@ class ClienteCobrancasController extends Controller
     public function get($id)
     {
         try {
-            $clienteCobranca = ClienteCobrancas::with('cliente')->with('funcionario')->find($id);
+            $clienteCobranca = ClienteCobrancas::with('cliente')->with('servico')->find($id);
             return response()->json($clienteCobranca, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);

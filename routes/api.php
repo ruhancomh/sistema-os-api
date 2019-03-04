@@ -109,3 +109,45 @@ Route::post('endereco-tipos', 'EnderecoTiposController@create');
 Route::get('endereco-tipos/{id}', 'EnderecoTiposController@get');
 Route::put('endereco-tipos/{id}', 'EnderecoTiposController@update');
 Route::delete('endereco-tipos/{id}', 'EnderecoTiposController@delete');
+
+Route::get('transportadores', 'TransportadoresController@all');
+Route::post('transportadores', 'TransportadoresController@create');
+Route::get('transportadores/{id}', 'TransportadoresController@get');
+Route::put('transportadores/{id}', 'TransportadoresController@update');
+Route::delete('transportadores/{id}', 'TransportadoresController@delete');
+
+Route::get('transportadores/{transportadores_id}/contatos', 'TransportadorContatosController@all');
+Route::post('transportadores/{transportadores_id}/contatos', 'TransportadorContatosController@create');
+Route::get('transportadores/{transportadores_id}/contatos/{id}', 'TransportadorContatosController@get');
+Route::put('transportadores/{transportadores_id}/contatos/{id}', 'TransportadorContatosController@update');
+Route::delete('transportadores/{transportadores_id}/contatos/{id}', 'TransportadorContatosController@delete');
+
+Route::get('receptores', 'ReceptoresController@all');
+Route::post('receptores', 'ReceptoresController@create');
+Route::get('receptores/{id}', 'ReceptoresController@get');
+Route::put('receptores/{id}', 'ReceptoresController@update');
+Route::delete('receptores/{id}', 'ReceptoresController@delete');
+
+Route::get('receptores/{receptores_id}/contatos', 'ReceptorContatosController@all');
+Route::post('receptores/{receptores_id}/contatos', 'ReceptorContatosController@create');
+Route::get('receptores/{receptores_id}/contatos/{id}', 'ReceptorContatosController@get');
+Route::put('receptores/{receptores_id}/contatos/{id}', 'ReceptorContatosController@update');
+Route::delete('receptores/{receptores_id}/contatos/{id}', 'ReceptorContatosController@delete');
+
+Route::get('residuos', 'ResiduosController@all');
+Route::post('residuos', 'ResiduosController@create');
+Route::get('residuos/{id}', 'ResiduosController@get');
+Route::put('residuos/{id}', 'ResiduosController@update');
+Route::delete('residuos/{id}', 'ResiduosController@delete');
+
+Route::get('residuo-tratamentos', 'ResiduoTratamentosController@all');
+Route::post('residuo-tratamentos', 'ResiduoTratamentosController@create');
+Route::get('residuo-tratamentos/{id}', 'ResiduoTratamentosController@get');
+Route::put('residuo-tratamentos/{id}', 'ResiduoTratamentosController@update');
+Route::delete('residuo-tratamentos/{id}', 'ResiduoTratamentosController@delete');
+
+Route::get('residuo-classes', 'ResiduoClassesController@all');
+Route::post('residuo-classes', 'ResiduoClassesController@create');
+Route::get('residuo-classes/{id}', 'ResiduoClassesController@get');
+Route::put('residuo-classes/{id}', 'ResiduoClassesController@update');
+Route::delete('residuo-classes/{id}', 'ResiduoClassesController@delete');

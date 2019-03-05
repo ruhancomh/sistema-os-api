@@ -11,6 +11,17 @@ class ReceptoresController extends Controller
     {
         try {
             $receptor = Receptores::create($request->all());
+            
+            if ($request->input('residuos')) {
+                $receptoresResiduos = [];
+                foreach ($request->input('residuos') as $residuos_id){
+                    $receptoresResiduos[] = [
+                        'residuos_id' => $residuos_id
+                    ];
+                }
+                $receptor->receptorResiduos()->createMany($receptoresResiduos);
+            }
+
             return response()->json($receptor,201);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
@@ -72,7 +83,7 @@ class ReceptoresController extends Controller
     public function get($id)
     {
         try {
-            $receptor = Receptores::with('cidade')->with('bairro')->find($id);
+            $receptor = Receptores::with('cidade')->with('bairro')->with('receptorResiduos')->find($id);
             return response()->json($receptor, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
@@ -84,6 +95,18 @@ class ReceptoresController extends Controller
         try {
             $receptor = Receptores::find($id);
             $receptor->update($request->all());
+
+            $receptor->receptorResiduos()->delete();
+
+            if ($request->input('residuos')) {
+                $receptoresResiduos = [];
+                foreach ($request->input('residuos') as $residuos_id){
+                    $receptoresResiduos[] = [
+                        'residuos_id' => $residuos_id
+                    ];
+                }
+                $receptor->receptorResiduos()->createMany($receptoresResiduos);
+            }
 
             return response()->json($receptor, 200);
         } catch (Exception $e) {

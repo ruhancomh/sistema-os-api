@@ -38,6 +38,11 @@ class Receptores extends Model
         return $this->hasMany('App\TransportadorContatos', 'id', 'bairros_id');
     }
 
+    public function receptorResiduos()
+    {
+        return $this->hasMany('App\ReceptoresResiduos', 'receptores_id', 'id');
+    }
+
     public function setVencimentoLicencaAttribute ($value)
     {
         $this->attributes['vencimento_licenca'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));

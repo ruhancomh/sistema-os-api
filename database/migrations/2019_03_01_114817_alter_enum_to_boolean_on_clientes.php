@@ -43,12 +43,21 @@ class AlterEnumToBooleanOnClientes extends Migration
             ");
 
             DB::statement("ALTER TABLE clientes
-                ALTER COLUMN ativo SET NOT NULL DEFAULT 1,
-                ALTER COLUMN prospeccao SET NOT NULL DEFAULT 0,
-                ALTER COLUMN pendencia SET NOT NULL DEFAULT 0,
-                ALTER COLUMN rastreabilidade_mri SET NOT NULL DEFAULT 0,
-                ALTER COLUMN faturamento_mensal SET NOT NULL DEFAULT 0,
-                ALTER COLUMN contrato_manutencao SET NOT NULL DEFAULT 0
+                ALTER COLUMN ativo SET NOT NULL,
+                ALTER COLUMN prospeccao SET NOT NULL,
+                ALTER COLUMN pendencia SET NOT NULL,
+                ALTER COLUMN rastreabilidade_mri SET NOT NULL,
+                ALTER COLUMN faturamento_mensal SET NOT NULL,
+                ALTER COLUMN contrato_manutencao SET NOT NULL
+            ");
+
+            DB::statement("ALTER TABLE clientes
+                ALTER COLUMN ativo SET DEFAULT 1,
+                ALTER COLUMN prospeccao SET DEFAULT 0,
+                ALTER COLUMN pendencia SET DEFAULT 0,
+                ALTER COLUMN rastreabilidade_mri SET DEFAULT 0,
+                ALTER COLUMN faturamento_mensal SET DEFAULT 0,
+                ALTER COLUMN contrato_manutencao SET DEFAULT 0
             ");
         }
     }

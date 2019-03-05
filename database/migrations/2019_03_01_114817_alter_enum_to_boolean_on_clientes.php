@@ -53,7 +53,7 @@ class AlterEnumToBooleanOnClientes extends Migration
             DB::statement("ALTER TABLE `clientes` MODIFY `contrato_manutencao` ENUM('1','2') NOT NULL DEFAULT '2'");
 
         } else if (env('DB_CONNECTION') == 'pgsql') {
-            DB::statement("ALTER TABLE `clientes`
+            DB::statement("ALTER TABLE clientes
                 ALTER COLUMN ativo ENUM('1','2') NOT NULL DEFAULT '1',
                 ALTER COLUMN prospeccao ENUM('1','2') NOT NULL DEFAULT '2',
                 ALTER COLUMN pendencia ENUM('1','2') NOT NULL DEFAULT '2',

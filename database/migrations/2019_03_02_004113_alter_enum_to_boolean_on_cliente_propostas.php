@@ -21,7 +21,7 @@ class AlterEnumToBooleanOnClientePropostas extends Migration
             ");
 
             DB::statement("ALTER TABLE cliente_propostas
-                ALTER COLUMN aprovado TYPE SMALLINT USING(ativo::smallint)
+                ALTER COLUMN aprovado TYPE SMALLINT USING(aprovado::smallint)
             ");
 
             DB::statement("ALTER TABLE cliente_propostas

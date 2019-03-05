@@ -14,9 +14,9 @@ class AlterandoTabelaClienteCorrigindoNomeObservacao extends Migration
     public function up()
     {
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::statement("ALTER TABLE `clientes` CHANGE COLUMN `obervacao` `observacao` TEXT");
+            DB::statement("ALTER TABLE clientes CHANGE COLUMN obervacao observacao TEXT");
         } else if (env('DB_CONNECTION') == 'pgsql') {
-            DB::statement("ALTER TABLE clientes RENAME COLUMN `obervacao` TO `observacao`");
+            DB::statement("ALTER TABLE clientes RENAME COLUMN obervacao TO observacao");
         }
     }
 
@@ -28,9 +28,9 @@ class AlterandoTabelaClienteCorrigindoNomeObservacao extends Migration
     public function down()
     {       
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::statement('ALTER TABLE clientes CHANGE COLUMN  `observacao` `obervacao` TEXT');
+            DB::statement('ALTER TABLE clientes CHANGE COLUMN observacao obervacao TEXT');
         } else if (env('DB_CONNECTION') == 'pgsql') {
-            DB::statement("ALTER TABLE clientes RENAME COLUMN `observacao` TO `obervacao`");
+            DB::statement("ALTER TABLE clientes RENAME COLUMN observacao TO obervacao");
         }
     }
 }

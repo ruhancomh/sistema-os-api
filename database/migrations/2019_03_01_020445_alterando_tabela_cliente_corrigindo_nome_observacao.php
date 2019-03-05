@@ -13,7 +13,11 @@ class AlterandoTabelaClienteCorrigindoNomeObservacao extends Migration
      */
     public function up()
     {
-        DB::statement("ALTER TABLE `clientes` CHANGE COLUMN `obervacao` `observacao` TEXT");
+        if (env('DB_CONNECTION') == 'mysql') {
+            DB::statement("ALTER TABLE `clientes` CHANGE COLUMN `obervacao` `observacao` TEXT");
+        } else if (env('DB_CONNECTION') == 'mysql') {
+            DB::statement("ALTER TABLE `clientes` RENAME COLUMN `obervacao` TO `observacao`");
+        }
     }
 
     /**
@@ -22,7 +26,11 @@ class AlterandoTabelaClienteCorrigindoNomeObservacao extends Migration
      * @return void
      */
     public function down()
-    {
-        DB::statement('ALTER TABLE clientes CHANGE COLUMN  `observacao` `obervacao` TEXT');
+    {       
+        if (env('DB_CONNECTION') == 'mysql') {
+            DB::statement('ALTER TABLE clientes CHANGE COLUMN  `observacao` `obervacao` TEXT');
+        } else if (env('DB_CONNECTION') == 'mysql') {
+            DB::statement("ALTER TABLE `clientes` RENAME COLUMN `observacao` TO `obervacao`");
+        }
     }
 }

@@ -13,7 +13,25 @@ class AlterEnumToBooleanOnClientePropostas extends Migration
      */
     public function up()
     {
-        DB::statement("ALTER TABLE `cliente_propostas` MODIFY `aprovado` tinyint(1) NOT NULL DEFAULT 0");
+        if (env('DB_CONNECTION') == 'mysql') {
+            DB::statement("ALTER TABLE `cliente_propostas` MODIFY `aprovado` tinyint(1) NOT NULL DEFAULT 0");
+        } else if (env('DB_CONNECTION') == 'pgsql') {
+            DB::statement("ALTER TABLE cliente_propostas
+                ALTER COLUMN aprovado DROP DEFAULT
+            ");
+
+            DB::statement("ALTER TABLE cliente_propostas
+                ALTER COLUMN aprovado TYPE SMALLINT USING(ativo::smallint)
+            ");
+
+            DB::statement("ALTER TABLE cliente_propostas
+                ALTER COLUMN aprovado SET NOT NULL
+            ");
+
+            DB::statement("ALTER TABLE cliente_propostas
+                ALTER COLUMN aprovado SET DEFAULT 0
+            ");
+        }
     }
 
     /**
@@ -23,6 +41,8 @@ class AlterEnumToBooleanOnClientePropostas extends Migration
      */
     public function down()
     {
-        DB::statement("ALTER TABLE `cliente_propostas` MODIFY `aprovado` ENUM('1','2') NOT NULL DEFAULT '1'");
+        if (env('DB_CONNECTION') == 'mysql') {
+            DB::statement("ALTER TABLE `cliente_propostas` MODIFY `aprovado` ENUM('1','2') NOT NULL DEFAULT '1'");
+        }
     }
 }

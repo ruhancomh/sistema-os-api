@@ -25,6 +25,15 @@ class AlterEnumToBooleanOnClientes extends Migration
 
         } else if (env('DB_CONNECTION') == 'pgsql') {
             DB::statement("ALTER TABLE clientes
+                ALTER COLUMN ativo DROP DEFAULT,
+                ALTER COLUMN prospeccao DROP DEFAULT,
+                ALTER COLUMN pendencia DROP DEFAULT,
+                ALTER COLUMN rastreabilidade_mri DROP DEFAULT,
+                ALTER COLUMN faturamento_mensal DROP DEFAULT,
+                ALTER COLUMN contrato_manutencao DROP DEFAULT
+            ");
+
+            DB::statement("ALTER TABLE clientes
                 ALTER COLUMN ativo TYPE SMALLINT USING(ativo::smallint),
                 ALTER COLUMN prospeccao TYPE SMALLINT USING(prospeccao::smallint),
                 ALTER COLUMN pendencia TYPE SMALLINT USING(pendencia::smallint),

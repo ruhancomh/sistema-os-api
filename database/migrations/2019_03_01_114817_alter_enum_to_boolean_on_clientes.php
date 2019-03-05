@@ -25,12 +25,12 @@ class AlterEnumToBooleanOnClientes extends Migration
 
         } else if (env('DB_CONNECTION') == 'pgsql') {
             DB::statement("ALTER TABLE clientes
-                ALTER COLUMN ativo tinyint(1) NOT NULL DEFAULT 1,
-                ALTER COLUMN prospeccao tinyint(1) NOT NULL DEFAULT 0,
-                ALTER COLUMN pendencia tinyint(1) NOT NULL DEFAULT 0,
-                ALTER COLUMN rastreabilidade_mri tinyint(1) NOT NULL DEFAULT 0,
-                ALTER COLUMN faturamento_mensal tinyint(1) NOT NULL DEFAULT 0,
-                ALTER COLUMN contrato_manutencao tinyint(1) NOT NULL DEFAULT 0
+                ALTER COLUMN ativo TYPE tinyint(1) NOT NULL DEFAULT 1,
+                ALTER COLUMN prospeccao TYPE tinyint(1) NOT NULL DEFAULT 0,
+                ALTER COLUMN pendencia TYPE tinyint(1) NOT NULL DEFAULT 0,
+                ALTER COLUMN rastreabilidade_mri TYPE tinyint(1) NOT NULL DEFAULT 0,
+                ALTER COLUMN faturamento_mensal TYPE tinyint(1) NOT NULL DEFAULT 0,
+                ALTER COLUMN contrato_manutencao TYPE tinyint(1) NOT NULL DEFAULT 0
             ");
         }
     }
@@ -54,12 +54,12 @@ class AlterEnumToBooleanOnClientes extends Migration
 
         } else if (env('DB_CONNECTION') == 'pgsql') {
             DB::statement("ALTER TABLE clientes
-                ALTER COLUMN ativo ENUM('1','2') NOT NULL DEFAULT '1',
-                ALTER COLUMN prospeccao ENUM('1','2') NOT NULL DEFAULT '2',
-                ALTER COLUMN pendencia ENUM('1','2') NOT NULL DEFAULT '2',
-                ALTER COLUMN rastreabilidade_mri ENUM('1','2') NOT NULL DEFAULT '2',
-                ALTER COLUMN faturamento_mensal ENUM('1','2') NOT NULL DEFAULT '2',
-                ALTER COLUMN contrato_manutencao ENUM('1','2') NOT NULL DEFAULT '2'
+                ALTER COLUMN ativo TYPE ENUM('1','2') NOT NULL DEFAULT '1',
+                ALTER COLUMN prospeccao TYPE ENUM('1','2') NOT NULL DEFAULT '2',
+                ALTER COLUMN pendencia TYPE ENUM('1','2') NOT NULL DEFAULT '2',
+                ALTER COLUMN rastreabilidade_mri TYPE ENUM('1','2') NOT NULL DEFAULT '2',
+                ALTER COLUMN faturamento_mensal TYPE ENUM('1','2') NOT NULL DEFAULT '2',
+                ALTER COLUMN contrato_manutencao TYPE ENUM('1','2') NOT NULL DEFAULT '2'
             ");
         }
     }

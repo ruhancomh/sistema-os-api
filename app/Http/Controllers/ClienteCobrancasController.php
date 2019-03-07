@@ -7,7 +7,7 @@ use App\ClienteCobrancas;
 
 class ClienteCobrancasController extends Controller
 {
-    public function create (Request $request)
+    public function create (Request $request, $clientes_id)
     {
         try {
             $clienteCobranca = ClienteCobrancas::create($request->all());
@@ -17,7 +17,7 @@ class ClienteCobrancasController extends Controller
         }
     }
 
-    public function all(Request $request)
+    public function all(Request $request, $clientes_id)
     {
         try {
             $metaData = [];
@@ -27,6 +27,7 @@ class ClienteCobrancasController extends Controller
 
             $query->with('cliente');
             $query->join('clientes','cliente_cobrancas.clientes_id','=','clientes.id');
+            $query->where('clientes.id','=',$clientes_id);
 
             $query->with('servico');
             $query->leftJoin('servicos','cliente_cobrancas.servicos_id','=','servicos.id');
@@ -77,7 +78,7 @@ class ClienteCobrancasController extends Controller
         }
     }
 
-    public function get($id)
+    public function get($clientes_id, $id)
     {
         try {
             $clienteCobranca = ClienteCobrancas::with('cliente')->with('servico')->find($id);
@@ -87,7 +88,7 @@ class ClienteCobrancasController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $clientes_id, $id)
     {
         try {
             $clienteCobranca = ClienteCobrancas::find($id);
@@ -99,7 +100,7 @@ class ClienteCobrancasController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete($clientes_id, $id)
     {
         try {
             ClienteCobrancas::findOrFail($id)->delete();

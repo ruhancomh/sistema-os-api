@@ -24,9 +24,9 @@ class ConversasController extends Controller
             $requestFilter = formatRequestFilter($request, 'conversas.data', 'desc', ['funcionario' => 'funcionarios.nome']);
 
             $query = Conversas::query();
-            $query->where('clientes.id', '=', $clientes_id);
             $query->with('cliente');
             $query->join('clientes','conversas.clientes_id','=','clientes.id');
+            $query->where('clientes.id', '=', $clientes_id);
 
             $query->with('funcionario');
             $query->leftJoin('funcionarios','conversas.funcionarios_id','=','funcionarios.id');

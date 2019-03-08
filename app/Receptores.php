@@ -45,11 +45,19 @@ class Receptores extends Model
 
     public function setVencimentoLicencaAttribute ($value)
     {
-        $this->attributes['vencimento_licenca'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+        if(!empty($value)){
+            $this->attributes['vencimento_licenca'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+        } else {
+            $this->attributes['vencimento_licenca'] = null;
+        }
     }
 
     public function getVencimentoLicencaAttribute ($value)
     {
-        return date('d/m/Y', strtotime($value));
+        if($value) {
+            $value = date('d/m/Y', strtotime($value));
+        }
+
+        return $value;
     }
 }

@@ -103,7 +103,7 @@ class BairrosController extends Controller
     public function listByCidade($cidades_id)
     {
         try {
-            $bairros = Bairros::where('cidades_id', '=', $cidades_id)->get();
+            $bairros = Bairros::where('cidades_id', '=', $cidades_id)->orderBy('nome','asc')->get();
             return response()->json($bairros, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);

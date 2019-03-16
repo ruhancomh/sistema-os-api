@@ -54,6 +54,18 @@ Route::middleware('jwt.auth')->group(function () {
     Route::put('servicos/{id}', 'ServicosController@update');
     Route::delete('servicos/{id}', 'ServicosController@delete');
 
+    Route::get('veiculos', 'VeiculosController@all');
+    Route::post('veiculos', 'VeiculosController@create');
+    Route::get('veiculos/{id}', 'VeiculosController@get');
+    Route::put('veiculos/{id}', 'VeiculosController@update');
+    Route::delete('veiculos/{id}', 'VeiculosController@delete');
+
+    Route::get('equipamentos', 'EquipamentosController@all');
+    Route::post('equipamentos', 'EquipamentosController@create');
+    Route::get('equipamentos/{id}', 'EquipamentosController@get');
+    Route::put('equipamentos/{id}', 'EquipamentosController@update');
+    Route::delete('equipamentos/{id}', 'EquipamentosController@delete');
+
     Route::get('funcionario-cargos', 'FuncionarioCargosController@all');
     Route::post('funcionario-cargos', 'FuncionarioCargosController@create');
     Route::get('funcionario-cargos/{id}', 'FuncionarioCargosController@get');

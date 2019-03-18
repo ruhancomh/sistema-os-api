@@ -28,7 +28,7 @@ class ClienteEnderecosController extends Controller
 
             $query->with('cliente');
             $query->join('clientes','cliente_enderecos.clientes_id','=','clientes.id');
-            
+
             if(!empty($clientes_id)){
                 $query->where('clientes.id','=',$clientes_id);
             }
@@ -77,7 +77,7 @@ class ClienteEnderecosController extends Controller
                         case 'search':
                         $value = explode(' ', $value);
                         $value = join('%', $value);
-                        
+
                         $query->where(function($query) use ($value){
                             $query
                             ->where('clientes.razao_social', 'like', '%' . $value . '%')
@@ -89,8 +89,8 @@ class ClienteEnderecosController extends Controller
                         });
                         break;
                     }
-                }                      
-            
+                }
+
             $metaData['total'] = $query->count();
 
             $query->select('cliente_enderecos.*');
@@ -114,7 +114,7 @@ class ClienteEnderecosController extends Controller
         }
     }
 
-    public function get($clientes_id,$id)
+    public function get($clientes_id = null, $id)
     {
         try {
             $clienteEndereco = ClienteEnderecos::with('cliente')
@@ -127,6 +127,10 @@ class ClienteEnderecosController extends Controller
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }
+    }
+
+    public function getOnly($id) {
+        return $this->get(null, $id);
     }
 
     public function update(Request $request,$clientes_id, $id)

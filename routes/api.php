@@ -82,38 +82,39 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('cliente-atividades/{id}', 'ClienteAtividadesController@get');
     Route::put('cliente-atividades/{id}', 'ClienteAtividadesController@update');
     Route::delete('cliente-atividades/{id}', 'ClienteAtividadesController@delete');
-    
+
     Route::get('conversa-acoes', 'ConversaAcoesController@all');
     Route::post('conversa-acoes', 'ConversaAcoesController@create');
     Route::get('conversa-acoes/{id}', 'ConversaAcoesController@get');
     Route::put('conversa-acoes/{id}', 'ConversaAcoesController@update');
     Route::delete('conversa-acoes/{id}', 'ConversaAcoesController@delete');
-    
+
     Route::get('clientes/{clientes_id}/conversas', 'ConversasController@all');
     Route::post('clientes/{clientes_id}/conversas', 'ConversasController@create');
     Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversasController@get');
     Route::put('clientes/{clientes_id}/conversas/{id}', 'ConversasController@update');
     Route::delete('clientes/{clientes_id}/conversas/{id}', 'ConversasController@delete');
-    
+
     Route::get('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@all');
     Route::post('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@create');
     Route::get('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@get');
     Route::put('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@update');
     Route::delete('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@delete');
-    
+
     Route::get('clientes/{clientes_id}/propostas', 'ClientePropostasController@all');
     Route::post('clientes/{clientes_id}/propostas', 'ClientePropostasController@create');
     Route::get('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@get');
     Route::put('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@update');
     Route::delete('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@delete');
-    
+
     Route::get('clientes/{clientes_id}/contatos', 'ClienteContatosController@all');
     Route::post('clientes/{clientes_id}/contatos', 'ClienteContatosController@create');
     Route::get('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@get');
     Route::put('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@update');
     Route::delete('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@delete');
-    
+
     Route::get('clientes/enderecos', 'ClienteEnderecosController@all');
+    Route::get('clientes/enderecos/{id}', 'ClienteEnderecosController@getOnly');
     Route::get('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@all');
     Route::post('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@create');
     Route::get('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@get');

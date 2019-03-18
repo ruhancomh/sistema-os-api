@@ -56,10 +56,13 @@ class Handler extends ExceptionHandler
                 return response()->json(['error_type' => 'TOKEN_ERROR','error' => 'TOKEN_INVALID'],401);
             } else if ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException) {
                 return response()->json(['error_type' => 'TOKEN_ERROR','error' => 'TOKEN_BLACKLISTED'],401);
-           }
-           if ($exception->getMessage() === 'Token not provided') {
-               return response()->json(['error_type' => 'TOKEN_ERROR','error' => 'TOKEN_NOT_PROVIDED'],401);
-           }
+            }
+
+            if ($exception->getMessage() === 'Token not provided') {
+                return response()->json(['error_type' => 'TOKEN_ERROR','error' => 'TOKEN_NOT_PROVIDED'],401);
+            }
+
+            return response()->json(['error_type' => 'TOKEN_ERROR','error' => 'USER_NOT_FOUND'],401);
         }
 
         return response()->json([

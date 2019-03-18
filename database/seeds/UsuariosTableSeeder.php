@@ -11,6 +11,8 @@ class UsuariosTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('usuarios')->delete();
+
         factory(App\Usuarios::class)->create([
             'nome' => 'Administrador Master',
             'email' => 'admin@email.com.br',

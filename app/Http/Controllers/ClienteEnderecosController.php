@@ -18,7 +18,7 @@ class ClienteEnderecosController extends Controller
         }
     }
 
-    public function all(Request $request,$clientes_id)
+    public function all(Request $request,$clientes_id = null)
     {
         try {
             $metaData = [];
@@ -28,7 +28,10 @@ class ClienteEnderecosController extends Controller
 
             $query->with('cliente');
             $query->join('clientes','cliente_enderecos.clientes_id','=','clientes.id');
-            $query->where('clientes.id','=',$clientes_id);
+            
+            if(!empty($clientes_id)){
+                $query->where('clientes.id','=',$clientes_id);
+            }
 
             $query->with('contato');
             $query->leftJoin('cliente_contatos','cliente_enderecos.cliente_contatos_id','=','cliente_contatos.id');
@@ -70,10 +73,24 @@ class ClienteEnderecosController extends Controller
                     break;
                     case 'cidade':
                         $query->Where('cidades.id', '=', $value );
-                    break;
-                }
-            }
-
+                        break;
+                        case 'search':
+                        $value = explode(' ', $value);
+                        $value = join('%', $value);
+                        
+                        $query->where(function($query) use ($value){
+                            $query
+                            ->where('clientes.razao_social', 'like', '%' . $value . '%')
+                            ->orWhere('clientes.cnpj', 'like', '%' . $value . '%')
+                            ->orWHere('clientes.nome_fantasia', 'like', '%' . $value . '%')
+                            ->orWhere('cliente_enderecos.cnpj', 'like', '%' . $value . '%')
+                            ->orWhere('cliente_enderecos.cep', 'like', '%' . $value . '%')
+                            ->orWhere('cliente_enderecos.descricao', 'like', '%' . $value . '%');
+                        });
+                        break;
+                    }
+                }                      
+            
             $metaData['total'] = $query->count();
 
             $query->select('cliente_enderecos.*');

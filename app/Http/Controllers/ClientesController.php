@@ -47,6 +47,18 @@ class ClientesController extends Controller
                     case 'atividade':
                         $query->Where('cliente_atividades.id', '=', $value );
                     break;
+
+                    case 'search':
+                        $value = explode(' ', $value);
+                        $value = join('%', $value);
+
+                        $query->where(function($query) use ($value){
+                            $query
+                                ->where('clientes.razao_social', 'like', '%' . $value . '%')
+                                ->orWhere('clientes.cnpj', 'like', '%' . $value . '%')
+                                ->orWHere('clientes.nome_fantasia', 'like', '%' . $value . '%');
+                        });
+                    break;
                 }
             }
 

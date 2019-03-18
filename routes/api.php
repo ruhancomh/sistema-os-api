@@ -29,7 +29,6 @@ Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
     Route::post('me', 'AuthController@me');
 });
 
-
 Route::middleware('jwt.auth')->group(function () {
     Route::get('estados', 'EstadosController@all');
     Route::post('estados', 'EstadosController@create');
@@ -83,48 +82,49 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('cliente-atividades/{id}', 'ClienteAtividadesController@get');
     Route::put('cliente-atividades/{id}', 'ClienteAtividadesController@update');
     Route::delete('cliente-atividades/{id}', 'ClienteAtividadesController@delete');
+    
+    Route::get('conversa-acoes', 'ConversaAcoesController@all');
+    Route::post('conversa-acoes', 'ConversaAcoesController@create');
+    Route::get('conversa-acoes/{id}', 'ConversaAcoesController@get');
+    Route::put('conversa-acoes/{id}', 'ConversaAcoesController@update');
+    Route::delete('conversa-acoes/{id}', 'ConversaAcoesController@delete');
+    
+    Route::get('clientes/{clientes_id}/conversas', 'ConversasController@all');
+    Route::post('clientes/{clientes_id}/conversas', 'ConversasController@create');
+    Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversasController@get');
+    Route::put('clientes/{clientes_id}/conversas/{id}', 'ConversasController@update');
+    Route::delete('clientes/{clientes_id}/conversas/{id}', 'ConversasController@delete');
+    
+    Route::get('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@all');
+    Route::post('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@create');
+    Route::get('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@get');
+    Route::put('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@update');
+    Route::delete('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@delete');
+    
+    Route::get('clientes/{clientes_id}/propostas', 'ClientePropostasController@all');
+    Route::post('clientes/{clientes_id}/propostas', 'ClientePropostasController@create');
+    Route::get('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@get');
+    Route::put('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@update');
+    Route::delete('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@delete');
+    
+    Route::get('clientes/{clientes_id}/contatos', 'ClienteContatosController@all');
+    Route::post('clientes/{clientes_id}/contatos', 'ClienteContatosController@create');
+    Route::get('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@get');
+    Route::put('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@update');
+    Route::delete('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@delete');
+    
+    Route::get('clientes/enderecos', 'ClienteEnderecosController@all');
+    Route::get('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@all');
+    Route::post('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@create');
+    Route::get('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@get');
+    Route::put('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@update');
+    Route::delete('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@delete');
 
     Route::get('clientes', 'ClientesController@all');
     Route::post('clientes', 'ClientesController@create');
     Route::get('clientes/{id}', 'ClientesController@get');
     Route::put('clientes/{id}', 'ClientesController@update');
     Route::delete('clientes/{id}', 'ClientesController@delete');
-
-    Route::get('conversa-acoes', 'ConversaAcoesController@all');
-    Route::post('conversa-acoes', 'ConversaAcoesController@create');
-    Route::get('conversa-acoes/{id}', 'ConversaAcoesController@get');
-    Route::put('conversa-acoes/{id}', 'ConversaAcoesController@update');
-    Route::delete('conversa-acoes/{id}', 'ConversaAcoesController@delete');
-
-    Route::get('clientes/{clientes_id}/conversas', 'ConversasController@all');
-    Route::post('clientes/{clientes_id}/conversas', 'ConversasController@create');
-    Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversasController@get');
-    Route::put('clientes/{clientes_id}/conversas/{id}', 'ConversasController@update');
-    Route::delete('clientes/{clientes_id}/conversas/{id}', 'ConversasController@delete');
-
-    Route::get('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@all');
-    Route::post('clientes/{clientes_id}/cobrancas', 'ClienteCobrancasController@create');
-    Route::get('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@get');
-    Route::put('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@update');
-    Route::delete('clientes/{clientes_id}/cobrancas/{id}', 'ClienteCobrancasController@delete');
-
-    Route::get('clientes/{clientes_id}/propostas', 'ClientePropostasController@all');
-    Route::post('clientes/{clientes_id}/propostas', 'ClientePropostasController@create');
-    Route::get('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@get');
-    Route::put('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@update');
-    Route::delete('clientes/{clientes_id}/propostas/{id}', 'ClientePropostasController@delete');
-
-    Route::get('clientes/{clientes_id}/contatos', 'ClienteContatosController@all');
-    Route::post('clientes/{clientes_id}/contatos', 'ClienteContatosController@create');
-    Route::get('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@get');
-    Route::put('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@update');
-    Route::delete('clientes/{clientes_id}/contatos/{id}', 'ClienteContatosController@delete');
-
-    Route::get('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@all');
-    Route::post('clientes/{clientes_id}/enderecos', 'ClienteEnderecosController@create');
-    Route::get('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@get');
-    Route::put('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@update');
-    Route::delete('clientes/{clientes_id}/enderecos/{id}', 'ClienteEnderecosController@delete');
 
     Route::get('endereco-tipos', 'EnderecoTiposController@all');
     Route::post('endereco-tipos', 'EnderecoTiposController@create');
@@ -173,4 +173,12 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('residuo-classes/{id}', 'ResiduoClassesController@get');
     Route::put('residuo-classes/{id}', 'ResiduoClassesController@update');
     Route::delete('residuo-classes/{id}', 'ResiduoClassesController@delete');
+
+    Route::get('ordem-servico-tipos', 'OrdemServicoTiposController@all');
+
+    Route::get('ordens-servico', 'OrdensServicoController@all');
+    Route::post('ordens-servico', 'OrdensServicoController@create');
+    Route::get('ordens-servico/{id}', 'OrdensServicoController@get');
+    Route::put('ordens-servico/{id}', 'OrdensServicoController@update');
+    Route::delete('ordens-servico/{id}', 'OrdensServicoController@delete');
 });

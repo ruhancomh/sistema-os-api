@@ -59,6 +59,16 @@ class ResiduosController extends Controller
                             $query->Where('residuo_classes.desricao', 'like', '%' . $value . '%');
                         });
                     break;
+                    case 'search':
+                        $value = explode(' ', $value);
+                        $value = join('%', $value);
+                        $query->where(function($query) use ($value){
+                            $query
+                            ->where('residuos.grupo', 'like', '%' . $value . '%')
+                            ->orWhere('residuos.codigo', 'like', '%' . $value . '%')
+                            ->orWHere('residuos.descricao', 'like', '%' . $value . '%');
+                        });
+                    break;
                 }
             }
 

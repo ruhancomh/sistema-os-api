@@ -57,6 +57,17 @@ class ReceptoresController extends Controller
                         $value = join('%', $value);
                         $query->where('receptores.cnpj', 'like', '%' . $value . '%');
                     break;
+                    case 'search':
+                        $value = explode(' ', $value);
+                        $value = join('%', $value);
+
+                        $query->where(function($query) use ($value){
+                            $query
+                                ->where('receptores.razao_social', 'like', '%' . $value . '%')
+                                ->orWhere('receptores.cnpj', 'like', '%' . $value . '%')
+                                ->orWHere('receptores.nome_fantasia', 'like', '%' . $value . '%');
+                        });
+                    break;
                 }
             }
 

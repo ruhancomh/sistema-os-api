@@ -10,8 +10,8 @@ class OrdensServicoController extends Controller
     public function create (Request $request)
     {
         try {
-            $cliente = OrdensServico::create($request->all());
-            return response()->json($cliente,201);
+            $ordemServico = OrdensServico::create($request->all());
+            return response()->json($ordemServico,201);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }
@@ -40,11 +40,17 @@ class OrdensServicoController extends Controller
             $query->with('cliente');
             $query->leftJoin('clientes','ordens_servico.clientes_id','=','clientes.id');
 
-            $query->with('gerador');
+            $query->with('gerador', 'gerador.cliente');
             $query->leftJoin('cliente_enderecos','ordens_servico.gerador_id','=','cliente_enderecos.id');
 
             $query->with('receptor');
             $query->leftJoin('receptores','ordens_servico.receptores_id','=','receptores.id');
+
+            $query->with('veiculo');
+            $query->leftJoin('veiculos','ordens_servico.veiculos_id','=','veiculos.id');
+
+            $query->with('residuo');
+            $query->leftJoin('residuos','ordens_servico.residuos_id','=','residuos.id');
 
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {
@@ -94,14 +100,14 @@ class OrdensServicoController extends Controller
     public function get($id)
     {
         try {
-            $cliente = OrdensServico::
+            $ordemServico = OrdensServico::
                 with('tipo')
                 ->with('funcionario')
                 ->with('cliente')
                 ->with('gerador')
                 ->with('receptor')
                 ->find($id);
-            return response()->json($cliente, 200);
+            return response()->json($ordemServico, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }
@@ -110,10 +116,10 @@ class OrdensServicoController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $cliente = OrdensServico::find($id);
-            $cliente->update($request->all());
+            $ordemSrvico = OrdensServico::find($id);
+            $ordemSrvico->update($request->all());
 
-            return response()->json($cliente, 200);
+            return response()->json($ordemSrvico, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }

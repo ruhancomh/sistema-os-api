@@ -101,4 +101,24 @@ class OrdensServico extends Model
     {
         return date('d/m/Y H:i', strtotime($value));
     }
+
+    public function setBalancaDataEntradaAttribute ($value)
+    {
+        $this->attributes['balanca_data_entrada'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+    }
+
+    public function getBalancaDataEntradaAttribute ($value)
+    {
+        return date('d/m/Y', strtotime($value));
+    }
+
+    public function setBalancaDataSaidaAttribute ($value)
+    {
+        $this->attributes['balanca_data_saida'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+    }
+
+    public function getBalancaDataSaidaAttribute ($value)
+    {
+        return date('d/m/Y', strtotime($value));
+    }
 }

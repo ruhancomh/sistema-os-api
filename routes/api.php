@@ -178,6 +178,9 @@ Route::middleware('jwt.auth')->group(function () {
 
     Route::get('ordem-servico-tipos', 'OrdemServicoTiposController@all');
 
+    Route::get('ordens-servico/{ordens_servico_id}/servicos', 'OrdemServicoServicosController@all');
+    Route::put('ordens-servico/{ordens_servico_id}/servicos', 'OrdemServicoServicosController@update');
+
     Route::get('ordens-servico', 'OrdensServicoController@all');
     Route::post('ordens-servico', 'OrdensServicoController@create');
     Route::get('ordens-servico/{id}', 'OrdensServicoController@get');

@@ -4,24 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\OrdemServicoServicos;
+use App\OrdensServico;
 
 class OrdemServicoServicosController extends Controller
 {
-    public function create (Request $request)
-    {
-        try {
-            $osServico = OrdemServicoServicos::create($request->all());
-            return response()->json($osServico,201);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 400);
-        }
-    }
-
     public function all(Request $request)
     {
         try {
             $metaData = [];
-            $requestFilter = formatRequestFilter($request, 'ordem_servico_servicos.id', 'desc', [
+            $requestFilter = formatRequestFilter($request, 'ordem_servico_servicos.id', 'asc', [
                 'id' => 'ordem_servico_servicos.id',
                 'valor' => 'ordem_servico_servicos.valor_total',
                 'servico' => 'servicos.descricao'
@@ -31,12 +22,14 @@ class OrdemServicoServicosController extends Controller
             $query->with('servico');
             $query->leftJoin('servicos','ordem_servico_servicos.servicos_id','=','servicos.id');
 
+            $query->join('ordens_servico','ordem_servico_servicos.ordens_servico_id','=','ordens_servico.id');
+
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {
                     case 'id':
                         $query->where('ordem_servico_servicos.id', '=', $value);
                     break;
-                    case 'ordem_servico':
+                    case 'ordens_servico_id':
                         $query->where('ordens_servico.id', '=', $value);
                     break;
                     case 'servico':
@@ -51,8 +44,11 @@ class OrdemServicoServicosController extends Controller
 
             $query->select('ordem_servico_servicos.*');
             $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
-            $query->offset($requestFilter['offset']);
-            $query->limit($requestFilter['limit']);
+
+            if($requestFilter['limit'] > 0){
+                $query->offset($requestFilter['offset']);
+                $query->limit($requestFilter['limit']);
+            }
 
             $ordem_servico_servicos = $query->get();
 
@@ -67,7 +63,7 @@ class OrdemServicoServicosController extends Controller
         }
     }
 
-    public function get($id)
+    public function get($ordens_servico_id)
     {
         try {
             $osServico = OrdemServicoServicos::
@@ -80,13 +76,46 @@ class OrdemServicoServicosController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $ordens_servico_id)
     {
         try {
-            $ordemSrvico = OrdemServicoServicos::find($id);
-            $ordemSrvico->update($request->all());
+            $servicosToInsert = [];
+            $servicosToUpdate = [];
+            $servicosId = [];
 
-            return response()->json($ordemSrvico, 200);
+            foreach ($request->input('servicos') as $servico){
+
+                if($servico['id']) {
+                    $servicosToUpdate[] = $servico;
+                    $servicosId[] = $servico['id'];
+                } else {
+                    $servicosToInsert[] = $servico;
+                }
+            }
+
+            // APAGA OS REGISTROS REMOVIDOS
+            $queryDelete = OrdemServicoServicos::query();
+            $queryDelete->where('ordens_servico_id','=',$ordens_servico_id);
+            if($servicosId){
+                $queryDelete->whereNotIn('id', $servicosId);
+            }
+            $queryDelete->delete();
+
+            // INSERE OS NOVOS REGISTROS
+            $ordemServico = OrdensServico::find($ordens_servico_id);
+            if($servicosToInsert){
+                $ordemServico->servicos()->createMany($servicosToInsert);
+            }
+
+            // ATUALIZA OS REGISTROS
+            if ($servicosToUpdate){
+                foreach ($servicosToUpdate as $servicoUpdate) {
+                    $servico = OrdemServicoServicos::findOrFail($servicoUpdate['id']);
+                    $servico->update($servicoUpdate);
+                }
+            }
+
+            return response()->json([], 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }

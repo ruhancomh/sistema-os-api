@@ -92,6 +92,11 @@ class OrdensServico extends Model
         return $this->hasOne('App\Receptores', 'id', 'receptores_id');
     }
 
+    public function servicos()
+    {
+        return $this->hasMany('App\OrdemServicoServicos', 'ordens_servico_id', 'id');
+    }
+
     public function setDataCriacaoAttribute ($value)
     {
         $this->attributes['data_criacao'] = date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value)));

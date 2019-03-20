@@ -17,7 +17,7 @@ class ClienteCobrancasController extends Controller
         }
     }
 
-    public function all(Request $request, $clientes_id)
+    public function all(Request $request, $clientes_id = false)
     {
         try {
             $metaData = [];
@@ -27,7 +27,10 @@ class ClienteCobrancasController extends Controller
 
             $query->with('cliente');
             $query->join('clientes','cliente_cobrancas.clientes_id','=','clientes.id');
-            $query->where('clientes.id','=',$clientes_id);
+            
+            if($clientes_id){
+                $query->where('clientes.id','=',$clientes_id);
+            }
 
             $query->with('servico');
             $query->leftJoin('servicos','cliente_cobrancas.servicos_id','=','servicos.id');
@@ -51,6 +54,10 @@ class ClienteCobrancasController extends Controller
                     break;
                     case 'servico':
                         $query->where('servicos.id', '=', $value);
+                    break;
+                    case 'ordens_servico_id':
+                        $query->join('ordens_servico','ordens_servico.clientes_id','=','clientes.id');
+                        $query->where('ordens_servico.id', '=', $value);
                     break;
                 }
             }

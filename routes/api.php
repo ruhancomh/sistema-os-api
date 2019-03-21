@@ -30,6 +30,8 @@ Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
 });
 
 Route::middleware('jwt.auth')->group(function () {
+    Route::get('controle-acesso/permissoes/usuario', 'ControleAcessoController@getPermissoesUsuario');
+
     Route::get('estados', 'EstadosController@all');
     Route::post('estados', 'EstadosController@create');
     Route::get('estados/{id}/cidades', 'CidadesController@listByEstado');

@@ -115,7 +115,13 @@ class OrdemServicoServicosController extends Controller
                 }
             }
 
-            return response()->json([], 200);
+            $ordem_servico_servicos = OrdemServicoServicos::
+                with('servico')
+                ->where('ordens_servico_id','=',$ordens_servico_id)
+                ->orderBy('id','asc')
+                ->get();
+
+            return response()->json($ordem_servico_servicos, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }

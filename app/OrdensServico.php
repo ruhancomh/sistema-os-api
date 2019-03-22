@@ -21,6 +21,8 @@ class OrdensServico extends Model
         'veiculos_id',
         'km_inicial',
         'km_final',
+        'hora_inicio',
+        'hora_fim',
         'residuos_id',
         'residuo_quantidade',
         'residuo_unidade',

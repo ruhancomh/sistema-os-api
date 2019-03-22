@@ -10,7 +10,10 @@ class OrdensServicoController extends Controller
     public function create (Request $request)
     {
         try {
-            $ordemServico = OrdensServico::create($request->all());
+            $params = $request->all();
+            $params['data_criacao'] = $params['data_criacao'] ? $params['data_criacao'] : date('d/m/Y H:i');
+
+            $ordemServico = OrdensServico::create($params);
             return response()->json($ordemServico,201);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);

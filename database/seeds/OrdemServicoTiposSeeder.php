@@ -11,7 +11,7 @@ class OrdemServicoTiposSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ordem_servico_tipos')->delete();
+        DB::table('ordem_servico_tipos')->whereIn('id',[1,2,3,4,5,6,7,8,9,10,11])->delete();
 
         DB::table('ordem_servico_tipos')->insert(['id' => 1, 'descricao' => 'Coleta Marítima']);
         DB::table('ordem_servico_tipos')->insert(['id' => 2, 'descricao' => 'Coleta Terrestre']);

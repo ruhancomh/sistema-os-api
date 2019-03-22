@@ -14,6 +14,7 @@ class OrdensServico extends Model
         'ordem_servico_tipos_id',
         'funcionarios_id',
         'clientes_id',
+        'transportadores_id',
         'atracacao_id',
         'atracacao_observacao',
         'equipamentos_id',

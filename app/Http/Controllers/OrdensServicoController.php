@@ -14,6 +14,11 @@ class OrdensServicoController extends Controller
             $params['data_criacao'] = $params['data_criacao'] ? $params['data_criacao'] : date('d/m/Y H:i');
 
             $ordemServico = OrdensServico::create($params);
+
+            if (!$params['codigo_os']){
+                $ordemServico->update(['codigo_os' => $ordemServico->id]);
+            }
+
             return response()->json($ordemServico,201);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);

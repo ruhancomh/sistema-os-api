@@ -65,12 +65,23 @@ class OrdensServicoController extends Controller
                     case 'numero':
                         $query->where('ordens_servico.id', '=', $value);
                     break;
+                    case 'data_inicio':
+                        $value = date('Y-m-d 00:00:00', strtotime(\str_replace('/','-',$value)));
+                        $query->where('ordens_servico.data_criacao', '>=', $value );
+                    break;
+                    case 'data_fim':
+                        $value = date('Y-m-d 23:59:59', strtotime(\str_replace('/','-',$value)));
+                        $query->where('ordens_servico.data_criacao', '<=', $value );
+                    break;
                     case 'data':
                         $value = date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value)));
                         $query->where('ordens_servico.data_criacao', '=', $value );
                     break;
                     case 'tipo':
                         $query->where('ordem_servico_tipos.id', '=', $value);
+                    break;
+                    case 'cliente_id':
+                        $query->where('clientes.id', '=', $value);
                     break;
                     case 'cliente_nome':
                         $value = explode(' ', $value);

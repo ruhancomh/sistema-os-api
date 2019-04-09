@@ -27,7 +27,7 @@ class FaturamentosController extends Controller
             $metaData = [];
             $requestFilter = formatRequestFilter($request, 'faturamentos.id', 'desc', [
                 'numero' => 'faturamentos.id',
-                'data' => 'faturamentos.data_faturamento',                
+                'data' => 'faturamentos.data_faturamento',
                 'cliente_nome' => 'clientes.razao_social',
                 'cliente_cnpj' => 'clientes.cnpj',
             ]);
@@ -88,6 +88,7 @@ class FaturamentosController extends Controller
             $faturamentos = Faturamentos::
                 with('funcionario')
                 ->with('cliente')
+                ->with('servicos')
                 ->find($id);
             return response()->json($faturamentos, 200);
         } catch (Exception $e) {

@@ -19,6 +19,7 @@ class Faturamentos extends Model
         'numero_documento',
         'observacoes_compra',
         'observacoes_servicos',
+        'empresa_fatura'
     ];
 
     public function funcionario()
@@ -48,21 +49,21 @@ class Faturamentos extends Model
 
     public function setDataVencimentoAttribute ($value)
     {
-        $this->attributes['data_vencimento'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+        $this->attributes['data_vencimento'] = $value ? date('Y-m-d', strtotime(\str_replace('/','-',$value))) : null;
     }
 
     public function getDataVencimentoAttribute ($value)
     {
-        return date('d/m/Y', strtotime($value));
+        return $value ? date('d/m/Y', strtotime($value)): null;
     }
 
     public function setDataEmissaoNotaAttribute ($value)
     {
-        $this->attributes['data_emissao_nota'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+        $this->attributes['data_emissao_nota'] = $value ? date('Y-m-d', strtotime(\str_replace('/','-',$value))) : null;
     }
 
     public function getDataEmissaoNotaAttribute ($value)
     {
-        return date('d/m/Y', strtotime($value));
+        return $value ? date('d/m/Y', strtotime($value)): null;
     }
 }

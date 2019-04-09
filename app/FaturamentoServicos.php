@@ -14,6 +14,7 @@ class FaturamentoServicos extends Model
         'ordem_servico_servicos_valor_unitario',
         'ordem_servico_servicos_valor_total',
         'ordem_servico_servicos_quantidade',
+        'observacao',
         'servicos_id',
     ];
 

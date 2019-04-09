@@ -29,7 +29,7 @@ class FaturamentoServicosController extends Controller
 
             $query->with('ordemServicoServico');
             $query->leftJoin('ordem_servico_servicos','faturamento_servicos.ordem_servico_servicos_id','=','ordem_servico_servicos.id');
-            
+
             $query->with('servico');
             $query->leftJoin('servicos','faturamento_servicos.servicos_id','=','servicos.id');
 
@@ -96,7 +96,7 @@ class FaturamentoServicosController extends Controller
                 $ordemServico = OrdensServico::
                                     with('servicos')
                                     ->find($ordens_servico_id);
-                
+
                 foreach ($ordemServico->servicos as $servico) {
                     $servicosToInsert[] = [
                         'ordens_servico_id' => $ordemServico->id,
@@ -118,6 +118,18 @@ class FaturamentoServicosController extends Controller
             }
 
             return response()->json($faturamento, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+    }
+
+    public function update(Request $request, $faturamento_id, $id)
+    {
+        try {
+            $faturamentoServico = FaturamentoServicos::find($id);
+            $faturamentoServico->update($request->all());
+
+            return response()->json($faturamentoServico, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);
         }

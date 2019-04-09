@@ -198,6 +198,6 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('faturamentos/{faturamentos_id}/servicos', 'FaturamentoServicosController@all');
     Route::post('faturamentos/{faturamentos_id}/servicos', 'FaturamentoServicosController@create');
     Route::get('faturamentos/{faturamentos_id}/servicos/{id}', 'FaturamentoServicosController@get');
-    Route::put('faturamentos/{faturamentos_id}/servicos', 'FaturamentoServicosController@update');
+    Route::put('faturamentos/{faturamentos_id}/servicos/{id}', 'FaturamentoServicosController@update');
     Route::delete('faturamentos/{faturamentos_id}/servicos/{id}', 'FaturamentoServicosController@delete');
 });

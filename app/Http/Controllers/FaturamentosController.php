@@ -40,6 +40,8 @@ class FaturamentosController extends Controller
             $query->with('cliente');
             $query->leftJoin('clientes','faturamentos.clientes_id','=','clientes.id');
 
+            $query->with('servicos');
+
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {
                     case 'numero':
@@ -64,12 +66,20 @@ class FaturamentosController extends Controller
 
             $metaData['total'] = $query->count();
 
-            $query->select('faturamentos.*');
+            $query->select(['faturamentos.*']);
             $query->orderBy($requestFilter['sort_by'], $requestFilter['sort_direction']);
             $query->offset($requestFilter['offset']);
             $query->limit($requestFilter['limit']);
 
             $faturamentos = $query->get();
+
+            if ($faturamentos) {
+                $faturamentos = collect($faturamentos)->map(function ($item) {
+                    $desconto = collect($item['servicos'])->sum('desconto');
+                    $item['valor_total'] = collect($item['servicos'])->sum('ordem_servico_servicos_valor_total') - $desconto;
+                    return $item;
+                });
+            }
 
             $result = [
                 'data' => $faturamentos,
@@ -90,6 +100,9 @@ class FaturamentosController extends Controller
                 ->with('cliente')
                 ->with('servicos')
                 ->find($id);
+            
+            $desconto = collect($faturamentos['servicos'])->sum('desconto');
+            $faturamentos['valor_total'] = collect($faturamentos['servicos'])->sum('ordem_servico_servicos_valor_total') - $desconto;
             return response()->json($faturamentos, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);

@@ -61,6 +61,15 @@ class FaturamentoServicosController extends Controller
 
             $faturamento_servicos = $query->get();
 
+            if ($faturamento_servicos) {
+                $faturamento_servicos = collect($faturamento_servicos)->map(function ($item) {
+                    $item['valor_total'] = $item->ordemServicoServico ?
+                        $item->ordemServicoServico->valor_total - $item->desconto
+                        : 0;
+                    return $item;
+                });
+            }
+
             $result = [
                 'data' => $faturamento_servicos,
                 'meta' => $metaData

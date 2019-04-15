@@ -10,7 +10,10 @@ class ConversasController extends Controller
     public function create (Request $request, $clientes_id)
     {
         try {
-            $conversa = Conversas::create($request->all());
+            $params = $request->all();
+            $params['data'] = $params['data'] ? $params['data'] : date('d/m/Y H:i');
+
+            $conversa = Conversas::create($params);
             return response()->json($conversa,201);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 400);

@@ -8,11 +8,8 @@ class ClienteCobrancas extends Model
 {
     protected $fillable = [
         'data',
-        'vencimento',
         'valor',
         'referencia',
-        'porcentagem',
-        'dia',
         'observacao',
         'servicos_id',
         'clientes_id'
@@ -32,16 +29,6 @@ class ClienteCobrancas extends Model
     }
 
     public function getDataAttribute ($value)
-    {
-        return date('d/m/Y', strtotime($value));
-    }
-
-    public function setVencimentoAttribute ($value)
-    {
-        $this->attributes['vencimento'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
-    }
-
-    public function getVencimentoAttribute ($value)
     {
         return date('d/m/Y', strtotime($value));
     }

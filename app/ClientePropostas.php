@@ -10,6 +10,7 @@ class ClientePropostas extends Model
         'data',
         'numero',
         'aprovado',
+        'vencimento',
         'referencia_1',
         'referencia_2',
         'referencia_3',
@@ -39,5 +40,15 @@ class ClientePropostas extends Model
     public function getDataAttribute ($value)
     {
         return date('d/m/Y', strtotime($value));
+    }
+
+    public function setVencimentoAttribute ($value)
+    {
+        $this->attributes['vencimento'] = $value ? date('Y-m-d', strtotime(\str_replace('/','-',$value))) : null;
+    }
+
+    public function getVencimentoAttribute ($value)
+    {
+        return $value ? date('d/m/Y', strtotime($value)) : null;
     }
 }

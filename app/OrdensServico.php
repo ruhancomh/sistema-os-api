@@ -102,31 +102,31 @@ class OrdensServico extends Model
 
     public function setDataCriacaoAttribute ($value)
     {
-        $this->attributes['data_criacao'] = date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value)));
+        $this->attributes['data_criacao'] = $value ? date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value))) : null;
     }
 
     public function getDataCriacaoAttribute ($value)
     {
-        return date('d/m/Y H:i', strtotime($value));
+        return $value ? date('d/m/Y H:i', strtotime($value)) : null;
     }
 
     public function setBalancaDataEntradaAttribute ($value)
     {
-        $this->attributes['balanca_data_entrada'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+        $this->attributes['balanca_data_entrada'] = $value ? date('Y-m-d', strtotime(\str_replace('/','-',$value))) : null;
     }
 
     public function getBalancaDataEntradaAttribute ($value)
     {
-        return date('d/m/Y', strtotime($value));
+        return $value ? date('d/m/Y', strtotime($value)) : null;
     }
 
     public function setBalancaDataSaidaAttribute ($value)
     {
-        $this->attributes['balanca_data_saida'] = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
+        $this->attributes['balanca_data_saida'] = $value ? date('Y-m-d', strtotime(\str_replace('/','-',$value))) : null;
     }
 
     public function getBalancaDataSaidaAttribute ($value)
     {
-        return date('d/m/Y', strtotime($value));
+        return $value ? date('d/m/Y', strtotime($value)) : null;
     }
 }

@@ -29,8 +29,8 @@ class OrdensServicoController extends Controller
     {
         try {
             $metaData = [];
-            $requestFilter = formatRequestFilter($request, 'ordens_servico.id', 'desc', [
-                'numero' => 'ordens_servico.id',
+            $requestFilter = formatRequestFilter($request, 'ordens_servico.codigo_os', 'desc', [
+                'numero' => 'ordens_servico.codigo_os',
                 'data' => 'ordens_servico.data_criacao',
                 'tipo' => 'ordem_servico_tipos.id',
                 'cliente_nome' => 'clientes.razao_social',

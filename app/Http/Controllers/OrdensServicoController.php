@@ -80,8 +80,9 @@ class OrdensServicoController extends Controller
                     case 'tipo':
                         $query->where('ordem_servico_tipos.id', '=', $value);
                     break;
-                    case 'nao_faturada':
-                        //
+                    case 'faturada':
+                        $value = $value === 'true'? true: false;
+                        $query->where('ordens_servico.faturada', $value);
                     break;
                     case 'cliente_id':
                         $query->where('clientes.id', '=', $value);

@@ -8,6 +8,10 @@ class OrdensServico extends Model
 {
     protected $table = 'ordens_servico';
 
+    protected $casts = [
+        'faturada' => 'boolean'
+    ];
+
     protected $fillable = [
         'codigo_os',
         'data_criacao',

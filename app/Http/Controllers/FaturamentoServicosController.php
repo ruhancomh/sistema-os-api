@@ -99,9 +99,10 @@ class FaturamentoServicosController extends Controller
     public function create(Request $request, $faturamento_id)
     {
         try {
+            $ordensServico = $request->input('ordens_servico');
             $servicosToInsert  = [];
 
-            foreach ($request->input('ordens_servico') as $ordens_servico_id){
+            foreach ($ordensServico as $ordens_servico_id){
                 $ordemServico = OrdensServico::
                                     with('servicos')
                                     ->find($ordens_servico_id);
@@ -125,6 +126,8 @@ class FaturamentoServicosController extends Controller
             if($servicosToInsert){
                 $faturamento->servicos()->createMany($servicosToInsert);
             }
+
+            OrdensServico::whereIn('id', $ordensServico)->update(['faturada' => true]);
 
             return response()->json($faturamento, 200);
         } catch (Exception $e) {

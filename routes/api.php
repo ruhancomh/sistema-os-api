@@ -91,6 +91,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::put('conversa-acoes/{id}', 'ConversaAcoesController@update');
     Route::delete('conversa-acoes/{id}', 'ConversaAcoesController@delete');
 
+    Route::get('clientes/conversas', 'ConversasController@all');
     Route::get('clientes/{clientes_id}/conversas', 'ConversasController@all');
     Route::post('clientes/{clientes_id}/conversas', 'ConversasController@create');
     Route::get('clientes/{clientes_id}/conversas/{id}', 'ConversasController@get');

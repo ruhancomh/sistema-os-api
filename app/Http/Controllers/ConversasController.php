@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Conversas;
-
+use Exception;
 class ConversasController extends Controller
 {
     public function create (Request $request, $clientes_id)
@@ -13,6 +13,15 @@ class ConversasController extends Controller
             $params = $request->all();
             $params['data'] = $params['data'] ? $params['data'] : date('d/m/Y H:i');
 
+            if ($params['data_agendamento']) {
+                $data = strtotime(\str_replace('/','-',$params['data']));
+                $dataAgendamento = strtotime(\str_replace('/','-',$params['data_agendamento']));
+
+                if ($dataAgendamento <= $data) {
+                    throw new Exception("A data do agendamento deve ser maior que a data da conversa.");
+                }
+            }
+
             $conversa = Conversas::create($params);
             return response()->json($conversa,201);
         } catch (Exception $e) {
@@ -20,16 +29,20 @@ class ConversasController extends Controller
         }
     }
 
-    public function all(Request $request, $clientes_id)
+    public function all(Request $request, $clientes_id = false)
     {
         try {
             $metaData = [];
-            $requestFilter = formatRequestFilter($request, 'conversas.data', 'desc', ['funcionario' => 'funcionarios.nome']);
+            $requestFilter = formatRequestFilter($request, 'conversas.data', 'desc', ['funcionario' => 'funcionarios.nome','data_agendamento' => 'conversas.data_agendamento']);
 
             $query = Conversas::query();
+            
+            if ($clientes_id) {
+                $query->join('clientes','conversas.clientes_id','=','clientes.id');
+                $query->where('clientes.id', '=', $clientes_id);
+            }
+            
             $query->with('cliente');
-            $query->join('clientes','conversas.clientes_id','=','clientes.id');
-            $query->where('clientes.id', '=', $clientes_id);
 
             $query->with('funcionario');
             $query->leftJoin('funcionarios','conversas.funcionarios_id','=','funcionarios.id');
@@ -49,6 +62,15 @@ class ConversasController extends Controller
 
                     case 'acao':
                         $query->Where('conversa_acoes.id', '=', $value );
+                    break;
+
+                    case 'data_agendamento':
+                        $value = date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value)));
+                        $query->where('conversas.data_agendamento', '>=', $value);
+                    break;
+
+                    case 'is_agendamento' :
+                        $query->whereNotNull('conversas.data_agendamento');
                     break;
                 }
             }
@@ -87,7 +109,19 @@ class ConversasController extends Controller
     {
         try {
             $conversa = Conversas::find($id);
-            $conversa->update($request->all());
+
+            $params = $request->all();
+
+            if ($params['data_agendamento']) {
+                $data = strtotime(\str_replace('/','-',$params['data']));
+                $dataAgendamento = strtotime(\str_replace('/','-',$params['data_agendamento']));
+
+                if ($dataAgendamento <= $data) {
+                    throw new Exception("A data do agendamento deve ser maior que a data da conversa.");
+                }
+            }
+
+            $conversa->update($params);
 
             return response()->json($conversa, 200);
         } catch (Exception $e) {

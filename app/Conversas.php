@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversas extends Model
 {
-    protected $fillable = ['data', 'descricao', 'clientes_id', 'funcionarios_id', 'conversa_acoes_id'];
+    protected $fillable = ['data', 'descricao', 'clientes_id', 'funcionarios_id', 'conversa_acoes_id', 'data_agendamento'];
 
     public function cliente()
     {
@@ -31,5 +31,15 @@ class Conversas extends Model
     public function getDataAttribute ($value)
     {
         return date('d/m/Y H:i', strtotime($value));
+    }
+
+    public function setDataAgendamentoAttribute ($value)
+    {
+        $this->attributes['data_agendamento'] = $value ? date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value))) : null;
+    }
+
+    public function getDataAgendamentoAttribute ($value)
+    {
+        return $value ? date('d/m/Y H:i', strtotime($value)) : null;
     }
 }

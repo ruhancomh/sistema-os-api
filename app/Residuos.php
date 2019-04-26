@@ -10,6 +10,7 @@ class Residuos extends Model
         'grupo',
         'descricao',
         'codigo',
+        'codigo_ibama',
         'onu',
         'residuo_tratamentos_id',
         'residuo_classes_id'

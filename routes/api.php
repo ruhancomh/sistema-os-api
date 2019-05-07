@@ -179,6 +179,14 @@ Route::middleware('jwt.auth')->group(function () {
     Route::put('residuo-classes/{id}', 'ResiduoClassesController@update');
     Route::delete('residuo-classes/{id}', 'ResiduoClassesController@delete');
 
+    Route::group(['prefix' => 'residuo-acondicionamentos'], function () {
+        Route::get('/', 'ResiduoAcondicionamentosController@all');
+        Route::post('/', 'ResiduoAcondicionamentosController@create');
+        Route::get('/{id}', 'ResiduoAcondicionamentosController@get');
+        Route::put('/{id}', 'ResiduoAcondicionamentosController@update');
+        Route::delete('/{id}', 'ResiduoAcondicionamentosController@delete');
+    });
+
     Route::get('ordem-servico-tipos', 'OrdemServicoTiposController@all');
 
     Route::get('ordens-servico/{ordens_servico_id}/servicos', 'OrdemServicoServicosController@all');

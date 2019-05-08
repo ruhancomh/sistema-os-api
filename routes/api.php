@@ -209,4 +209,12 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('faturamentos/{faturamentos_id}/servicos/{id}', 'FaturamentoServicosController@get');
     Route::put('faturamentos/{faturamentos_id}/servicos/{id}', 'FaturamentoServicosController@update');
     Route::delete('faturamentos/{faturamentos_id}/servicos/{id}', 'FaturamentoServicosController@delete');
+
+    Route::group(['prefix' => 'manifesto-tipos-operacao'], function () {
+        Route::get('/', 'ManifestoTiposOperacaoController@all');
+        Route::post('/', 'ManifestoTiposOperacaoController@create');
+        Route::get('/{id}', 'ManifestoTiposOperacaoController@get');
+        Route::put('/{id}', 'ManifestoTiposOperacaoController@update');
+        Route::delete('/{id}', 'ManifestoTiposOperacaoController@delete');
+    });
 });

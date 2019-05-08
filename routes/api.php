@@ -217,4 +217,12 @@ Route::middleware('jwt.auth')->group(function () {
         Route::put('/{id}', 'ManifestoTiposOperacaoController@update');
         Route::delete('/{id}', 'ManifestoTiposOperacaoController@delete');
     });
+
+    Route::group(['prefix' => 'manifestos'], function () {
+        Route::get('/', 'ManifestosController@all');
+        Route::post('/', 'ManifestosController@create');
+        Route::get('/{id}', 'ManifestosController@get');
+        Route::put('/{id}', 'ManifestosController@update');
+        Route::delete('/{id}', 'ManifestosController@delete');
+    });
 });

@@ -48,6 +48,8 @@ class ManifestosController extends Controller
             $query->with('residuo');
             $query->leftJoin('residuos','manifestos.residuos_id','=','residuos.id');
 
+            $query->with('tipoOperacao');
+
             foreach($requestFilter['filter'] as $field => $value) {
                 switch ($field) {
                     case 'id':

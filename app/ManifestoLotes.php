@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class ManifestoLotes extends Model
 {
@@ -10,6 +11,14 @@ class ManifestoLotes extends Model
         'manifestos_id_principal',
         'manifestos_id_vinculado'
     ];
+
+    protected function setKeysForSaveQuery(Builder $query)
+    {
+        $query
+            ->where('manifestos_id_principal', '=', $this->getAttribute('manifestos_id_principal'))
+            ->where('manifestos_id_vinculado', '=', $this->getAttribute('manifestos_id_vinculado'));
+        return $query;
+    }
 
     public function manifestoPrincipal()
     {

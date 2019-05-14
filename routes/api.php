@@ -225,4 +225,10 @@ Route::middleware('jwt.auth')->group(function () {
         Route::put('/{id}', 'ManifestosController@update');
         Route::delete('/{id}', 'ManifestosController@delete');
     });
+
+    Route::group(['prefix' => 'manifestos/{manifestos_id_principal}/lotes'], function () {
+        Route::get('/', 'ManifestoLotesController@all');
+        Route::post('/', 'ManifestoLotesController@create');
+        Route::delete('/{manifestos_id_vinculado}', 'ManifestoLotesController@delete');
+    });
 });

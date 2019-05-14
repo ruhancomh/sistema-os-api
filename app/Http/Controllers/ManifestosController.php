@@ -63,22 +63,12 @@ class ManifestosController extends Controller
                         $value = date('Y-m-d 23:59:59', strtotime(\str_replace('/','-',$value)));
                         $query->where('manifestos.data_geracao', '<=', $value );
                     break;
-                    case 'data':
-                        $value = date('Y-m-d H:i:00', strtotime(\str_replace('/','-',$value)));
+                    case 'data_geracao':
+                        $value = date('Y-m-d', strtotime(\str_replace('/','-',$value)));
                         $query->where('manifestos.data_geracao', '=', $value );
                     break;
-                    case 'cliente_id':
-                        $query->where('clientes.id', '=', $value);
-                    break;
-                    case 'cliente_nome':
-                        $value = explode(' ', $value);
-                        $value = join('%', $value);
-                        $query->where('clientes.razao_social', 'like', '%' . $value . '%');
-                    break;
-                    case 'cliente_cnpj':
-                        $value = explode(' ', $value);
-                        $value = join('%', $value);
-                        $query->where('clientes.cnpj', 'like', '%' . $value . '%');
+                    case 'manifesto_tipo':
+                        $query->where('manifestos.manifesto_tipo', '=', $value);
                     break;
                 }
             }

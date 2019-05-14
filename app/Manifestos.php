@@ -9,6 +9,7 @@ class Manifestos extends Model
     protected $fillable = [
         'id',
         'ordens_servico_id',
+        'manifesto_tipo',
         'manifesto_tipos_operacao_id',
         'gerador_id',
         'gerador_observacao',
@@ -84,6 +85,11 @@ class Manifestos extends Model
     public function transportador()
     {
         return $this->hasOne('App\Transportadores', 'id', 'transportadores_id');
+    }
+
+    public function lote()
+    {
+        return $this->hasMany('App\ManifestoLotes', 'manifestos_id_principal', 'id');
     }
 
     public function setDataGeracaoAttribute ($value)
